@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3yg87cc5lg86"]
+
+[ext_resource type="Script" path="res://scripts/endgame.gd" id="1_lg5br"]
+
+[sub_resource type="FontFile" id="FontFile_jiewy"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/45/0 = Vector2(0, 0)
+cache/0/45/0/ascent = 0.0
+cache/0/45/0/descent = 0.0
+cache/0/45/0/underline_position = 0.0
+cache/0/45/0/underline_thickness = 0.0
+cache/0/45/0/scale = 1.0
+cache/0/45/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/45/0/kerning_overrides/45/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oioad"]
+font = SubResource("FontFile_jiewy")
+font_size = 45
+
+[sub_resource type="Animation" id="Animation_j6f33"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texto:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6cbb2"]
+resource_name = "end"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texto:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_omflc"]
+_data = {
+"RESET": SubResource("Animation_j6f33"),
+"end": SubResource("Animation_6cbb2")
+}
+
+[node name="endgame" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_lg5br")
+
+[node name="fim" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -13.0
+offset_right = 43.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fim de Jogo"
+label_settings = SubResource("LabelSettings_oioad")
+horizontal_alignment = 1
+
+[node name="texto" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = 43.0
+offset_right = 158.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pressione qualquer tecla para reiniciar"
+horizontal_alignment = 1
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_omflc")
+}
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

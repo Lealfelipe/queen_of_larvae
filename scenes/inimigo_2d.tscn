@@ -1,0 +1,186 @@
+[gd_scene load_steps=12 format=3 uid="uid://mmbanawhv1wd"]
+
+[ext_resource type="Texture2D" uid="uid://ctpd8hl7pui85" path="res://Assets/inimigo/spritesheet/walk.png" id="1_f3bjh"]
+[ext_resource type="Script" path="res://scripts/inimigo_2d.gd" id="1_fway7"]
+[ext_resource type="Texture2D" uid="uid://dfd1ys1inf3s2" path="res://Assets/inimigo/spritesheet/die.png" id="2_32q5f"]
+[ext_resource type="Shader" path="res://shader/flash.gdshader" id="2_dj2ei"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hby3a"]
+resource_local_to_scene = true
+shader = ExtResource("2_dj2ei")
+shader_parameter/alpha = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qcwfj"]
+radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_trk12"]
+radius = 31.0
+height = 80.0
+
+[sub_resource type="Animation" id="Animation_bcor3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8i8dj"]
+resource_name = "die"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2d:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_32q5f")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite2d:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite2d:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("anim:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+
+[sub_resource type="Animation" id="Animation_y24ps"]
+resource_name = "walk"
+length = 2.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2d:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_f3bjh")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite2d:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite2d:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("anim:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmaro"]
+_data = {
+"RESET": SubResource("Animation_bcor3"),
+"die": SubResource("Animation_8i8dj"),
+"walk": SubResource("Animation_y24ps")
+}
+
+[node name="inimigo2d" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_fway7")
+
+[node name="sprite2d" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hby3a")
+position = Vector2(15, -74)
+texture = ExtResource("1_f3bjh")
+hframes = 21
+
+[node name="shape2d" type="CollisionShape2D" parent="."]
+position = Vector2(1, 10)
+shape = SubResource("CircleShape2D_qcwfj")
+debug_color = Color(0, 0.65098, 0.0117647, 0.419608)
+
+[node name="corpo2d" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 65
+
+[node name="shape2d" type="CollisionShape2D" parent="corpo2d"]
+position = Vector2(6, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_trk12")
+debug_color = Color(0.980392, 0, 0.392157, 0.419608)
+
+[node name="anim" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_tmaro")
+}
+
+[node name="ray" type="RayCast2D" parent="."]
+position = Vector2(-41, -1)
+collision_mask = 8
+
+[connection signal="area_entered" from="corpo2d" to="." method="_on_corpo_2d_area_entered"]
+[connection signal="body_entered" from="corpo2d" to="." method="_on_corpo_2d_body_entered"]

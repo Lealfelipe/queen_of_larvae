@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://lh0767tk8eq0"]
+
+[ext_resource type="Script" path="res://scripts/caixa.gd" id="1_8o3nv"]
+[ext_resource type="Texture2D" uid="uid://b363tseb33c5m" path="res://Assets/itens/caixa.png" id="2_wwfgp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2g5sk"]
+size = Vector2(29, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yqju"]
+size = Vector2(24.3333, 20)
+
+[node name="caixa" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 13
+script = ExtResource("1_8o3nv")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wwfgp")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_2g5sk")
+debug_color = Color(0.168627, 0.631373, 0.396078, 0.419608)
+
+[node name="area_contato" type="Area2D" parent="."]
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_contato"]
+position = Vector2(1, 0)
+scale = Vector2(6, 4)
+shape = SubResource("RectangleShape2D_6yqju")
+debug_color = Color(0.764706, 0.447059, 0.0509804, 0.419608)
+
+[node name="ray" type="RayCast2D" parent="."]
+target_position = Vector2(75, 0)
+
+[connection signal="body_entered" from="area_contato" to="." method="_on_area_contato_body_entered"]
+[connection signal="body_exited" from="area_contato" to="." method="_on_area_contato_body_exited"]

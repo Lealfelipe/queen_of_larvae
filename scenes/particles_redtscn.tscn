@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://btrhcu1rn8tos"]
+
+[ext_resource type="Texture2D" uid="uid://6x5vuof7hvoo" path="res://Assets/itens/brilho_vermelho.png" id="1_f6u5l"]
+[ext_resource type="Script" path="res://scenes/particlesgreen.gd" id="2_v23fi"]
+
+[sub_resource type="Gradient" id="Gradient_yvwh6"]
+offsets = PackedFloat32Array(0, 0.814815, 0.987654)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.625, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lig1f"]
+gradient = SubResource("Gradient_yvwh6")
+
+[sub_resource type="Curve" id="Curve_27vs2"]
+_data = [Vector2(0, 0.347368), 0.0, 0.0, 0, 0, Vector2(0.982143, 0.105263), -0.884211, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8gu5x"]
+curve = SubResource("Curve_27vs2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ypkm"]
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+gravity = Vector3(0, -100, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 50.0
+radial_accel_max = 100.0
+scale_curve = SubResource("CurveTexture_8gu5x")
+color_ramp = SubResource("GradientTexture1D_lig1f")
+
+[node name="particles" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_3ypkm")
+texture = ExtResource("1_f6u5l")
+one_shot = true
+script = ExtResource("2_v23fi")

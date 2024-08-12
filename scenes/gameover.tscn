@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1a670g2kkijo"]
+
+[ext_resource type="Script" path="res://scripts/gameover.gd" id="1_jpurn"]
+
+[sub_resource type="FontFile" id="FontFile_lcxq2"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/45/0 = Vector2(0, 0)
+cache/0/45/0/ascent = 0.0
+cache/0/45/0/descent = 0.0
+cache/0/45/0/underline_position = 0.0
+cache/0/45/0/underline_thickness = 0.0
+cache/0/45/0/scale = 1.0
+cache/0/45/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/45/0/kerning_overrides/45/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rnlhl"]
+font = SubResource("FontFile_lcxq2")
+font_size = 45
+
+[sub_resource type="Animation" id="Animation_t325o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texto:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kkudw"]
+resource_name = "fadein"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texto:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ay64u"]
+_data = {
+"RESET": SubResource("Animation_t325o"),
+"fadein": SubResource("Animation_kkudw")
+}
+
+[node name="rect" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_jpurn")
+
+[node name="gameover" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -13.0
+offset_right = 43.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_rnlhl")
+horizontal_alignment = 1
+
+[node name="texto" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = 43.0
+offset_right = 158.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pressione qualquer tecla para reiniciar"
+horizontal_alignment = 1
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ay64u")
+}
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cds8y7a8a0xxm"]
+
+[ext_resource type="Script" path="res://scripts/cristal.gd" id="1_03ut0"]
+[ext_resource type="Texture2D" uid="uid://c0eqirjbypqqb" path="res://Assets/itens/cristal.png" id="2_xnulq"]
+[ext_resource type="Texture2D" uid="uid://cfy8i6pmt44lh" path="res://Assets/itens/light2D.png" id="3_co16i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m60xt"]
+radius = 49.0408
+
+[node name="Cristal" type="Area2D"]
+z_index = 3
+scale = Vector2(0.486729, 0.5)
+collision_layer = 256
+script = ExtResource("1_03ut0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xnulq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m60xt")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.25
+texture = ExtResource("3_co16i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
